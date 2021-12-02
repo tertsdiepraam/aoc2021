@@ -1,8 +1,11 @@
 mod one;
+mod two;
 
-const EXERCISES: [fn() -> usize; 2] = [
+const EXERCISES: [fn() -> i32; 4] = [
     one::first,
     one::second,
+    two::first,
+    two::second,
 ];
 
 fn main() {
