@@ -1,71 +1,54 @@
 const INPUT: &'static str = include_str!("../input/3.txt");
 
 pub fn first() -> i32 {
-    let lines = INPUT.lines().collect::<Vec<_>>().len();
-    let v = INPUT
-        .lines()
-        .map(|l| -> Vec<_> { l.chars().map(|c| (c == '1') as i32).collect() })
-        .reduce(|mut a, b| {
-            for i in 0..a.len() {
-                a[i] += b[i];
-            }
-            a
-        })
-        .unwrap()
-        .iter()
-        .map(|&n| ((n as f64) / (lines as f64)).round())
-        .collect::<Vec<_>>();
+    let mut lines: Vec<_> = INPUT.lines().map(|l| l.chars()).collect();
 
-    let mut gamma = 0;
-    let mut epsilon = 0;
-    for (i, &elem) in v.iter().rev().enumerate() {
-        if elem == 1.0 {
-            gamma += 1 << i;
-        } else {
-            epsilon += 1 << i;
+    let mut a = [0; 12];
+
+    for i in 0..12 {
+        let mut count = 0;
+        for l in &mut lines {
+            count += (l.next_back() == Some('1')) as usize;
         }
+        a[(2 * count >= lines.len()) as usize] += 1 << i;
     }
-    gamma * epsilon
+
+    a[0] * a[1]
 }
 
 pub fn second() -> i32 {
     let v: Vec<_> = INPUT
         .lines()
-        .map(|l| -> Vec<_> { l.chars().map(|c| (c == '1') as i32).collect() })
+        .map(|l| -> Vec<_> { l.chars().map(|c| c == '1').collect() })
         .collect();
 
-    
     let mut vec = v.clone();
     for i in 0..vec[0].len() {
-        let to_retain = (2 * vec.iter().filter(|x| x[i] == 1).count() >= vec.len()) as i32;
+        let to_retain = 2 * vec.iter().filter(|x| x[i]).count() >= vec.len();
         vec.retain(|x| x[i] == to_retain);
         if vec.len() == 1 {
             break;
         }
     }
 
-    let mut oxygen = 0;
+    let mut a = 0;
     for (i, &elem) in vec[0].iter().rev().enumerate() {
-        if elem as f64 == 1.0 {
-            oxygen += 1 << i;
-        }
+        a += (elem as i32) << i;
     }
 
-    let mut vec = v.clone();
+    let mut vec = v;
     for i in 0..vec[0].len() {
-        let to_retain = (2 * vec.iter().filter(|x| x[i] == 1).count() < vec.len()) as i32;
+        let to_retain = 2 * vec.iter().filter(|x| x[i]).count() < vec.len();
         vec.retain(|x| x[i] == to_retain);
         if vec.len() == 1 {
             break;
         }
     }
 
-    let mut co2 = 0;
+    let mut b = 0;
     for (i, &elem) in vec[0].iter().rev().enumerate() {
-        if elem as f64 == 1.0 {
-            co2 += 1 << i;
-        }
+        b += (elem as i32) << i;
     }
 
-    oxygen * co2
+    a * b
 }

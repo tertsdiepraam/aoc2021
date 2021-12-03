@@ -21,7 +21,7 @@ fn main() -> Result<(), ParseIntError> {
 
     let now = Instant::now();
     let answers: Vec<i32> = EXERCISES[2*from..2*to].iter().map(|e| e()).collect();
-    let time = now.elapsed().as_millis();
+    let time = now.elapsed().as_micros();
 
     for (i, a) in answers.chunks(2).enumerate() {
         println!("Day {}", i + 1);
@@ -29,6 +29,6 @@ fn main() -> Result<(), ParseIntError> {
         println!("  Part 2: {}", a[1]);
         println!();
     }
-    println!("Time: {}ms", time);
+    println!("Time: {}μs", time);
     Ok(())
 }
