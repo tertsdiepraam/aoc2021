@@ -2,8 +2,9 @@ use std::{env, num::ParseIntError, time::Instant};
 
 mod one;
 mod two;
+mod three;
 
-const EXERCISES: [fn() -> i32; 4] = [one::first, one::second, two::first, two::second];
+const EXERCISES: [fn() -> i32; 6] = [one::first, one::second, two::first, two::second, three::first, three::second];
 
 fn main() -> Result<(), ParseIntError> {
     let args: Vec<String> = env::args().collect();
