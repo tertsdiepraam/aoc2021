@@ -15,7 +15,7 @@ fn parse() -> (Vec<usize>, Vec<Card>) {
         .flat_map(str::parse)
         .collect();
 
-    let mut cards = Vec::new();
+    let mut cards = Vec::with_capacity(100);
 
     while lines.next().is_some() {
         let mut fields = [0; CARD_SIZE * CARD_SIZE];
@@ -46,7 +46,7 @@ pub fn first() -> i32 {
                 c.sums[x] -= n;
                 c.sums[y] -= n;
 
-                if c.sums[x] * c.sums[y] == 0 {
+                if c.sums[x] == 0 || c.sums[y] == 0 {
                     return (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32;
                 }
             }
@@ -67,7 +67,7 @@ pub fn second() -> i32 {
                     c.sums[x] -= n;
                     c.sums[y] -= n;
 
-                    if c.sums[x] * c.sums[y] == 0 {
+                    if c.sums[x] == 0 || c.sums[y] == 0 {
                         return (k, (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32);
                     }
                 }
