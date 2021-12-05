@@ -57,19 +57,24 @@ pub fn first() -> i32 {
 
 pub fn second() -> i32 {
     let (numbers, mut cards) = parse();
-    cards.iter_mut().map(|c| {
-        for (k, n) in numbers.iter().enumerate() {
-            if let Some(i) = c.fields.iter().position(|f| f == n) {
-                let (x, y) = (i / CARD_SIZE, CARD_SIZE + (i % CARD_SIZE));
+    cards
+        .iter_mut()
+        .map(|c| {
+            for (k, n) in numbers.iter().enumerate() {
+                if let Some(i) = c.fields.iter().position(|f| f == n) {
+                    let (x, y) = (i / CARD_SIZE, CARD_SIZE + (i % CARD_SIZE));
 
-                c.sums[x] -= n;
-                c.sums[y] -= n;
+                    c.sums[x] -= n;
+                    c.sums[y] -= n;
 
-                if c.sums[x] * c.sums[y] == 0 {
-                    return (k, (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32);
+                    if c.sums[x] * c.sums[y] == 0 {
+                        return (k, (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32);
+                    }
                 }
             }
-        }
-        (0,0)
-    }).max_by_key(|t| t.0).unwrap_or((0,0)).1
+            (0, 0)
+        })
+        .max_by_key(|t| t.0)
+        .unwrap_or((0, 0))
+        .1
 }
