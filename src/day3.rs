@@ -1,6 +1,10 @@
 const INPUT: &'static str = include_str!("../input/3.txt");
 
-pub fn first() -> u64 {
+pub fn main() -> (u64, u64) {
+    (first(), second())
+}
+
+fn first() -> u64 {
     let mut lines: Vec<_> = INPUT.lines().map(|l| l.chars()).collect();
 
     let mut a = [0; 12];
@@ -16,7 +20,7 @@ pub fn first() -> u64 {
     a[0] * a[1]
 }
 
-pub fn second() -> u64 {
+fn second() -> u64 {
     let v: Vec<_> = INPUT
         .lines()
         .map(|l| -> Vec<_> { l.chars().map(|c| c == '1').collect() })

@@ -1,9 +1,15 @@
 const INPUT: &'static str = include_str!("../input/4.txt");
 const CARD_SIZE: usize = 5;
 
+#[derive(Clone)]
 struct Card {
     fields: [usize; CARD_SIZE * CARD_SIZE],
     sums: [usize; 2 * CARD_SIZE],
+}
+
+pub fn main() -> (u64, u64) {
+    let (numbers, cards) = parse();
+    (first(&numbers, cards.clone()), second(&numbers, cards))
 }
 
 fn parse() -> (Vec<usize>, Vec<Card>) {
@@ -36,11 +42,10 @@ fn parse() -> (Vec<usize>, Vec<Card>) {
     (numbers, cards)
 }
 
-pub fn first() -> u64 {
-    let (numbers, mut cards) = parse();
+fn first(numbers: &Vec<usize>, mut cards: Vec<Card>) -> u64 {
     for n in numbers {
         for c in &mut cards {
-            if let Some(i) = c.fields.iter().position(|&f| f == n) {
+            if let Some(i) = c.fields.iter().position(|f| f == n) {
                 let (x, y) = (i / CARD_SIZE, CARD_SIZE + (i % CARD_SIZE));
 
                 c.sums[x] -= n;
@@ -55,8 +60,7 @@ pub fn first() -> u64 {
     0
 }
 
-pub fn second() -> u64 {
-    let (numbers, mut cards) = parse();
+fn second(numbers: &Vec<usize>, mut cards: Vec<Card>) -> u64 {
     cards
         .iter_mut()
         .map(|c| {
