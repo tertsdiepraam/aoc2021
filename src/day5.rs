@@ -16,7 +16,7 @@ fn parse() -> Vec<((usize, usize), (usize, usize))> {
         .collect()
 }
 
-pub fn first() -> i32 {
+pub fn first() -> u64 {
     let mut b = [[0u8; SIZE]; SIZE];
     let mut twos = 0;
     for ((x1, y1), (x2, y2)) in parse() {
@@ -24,7 +24,7 @@ pub fn first() -> i32 {
             for x in x1.min(x2)..=x1.max(x2) {
                 for y in y1.min(y2)..=y1.max(y2) {
                     b[y as usize][x as usize] += 1;
-                    twos += (b[y as usize][x as usize] == 2) as i32;
+                    twos += (b[y as usize][x as usize] == 2) as u64;
                 }
             }
         }
@@ -32,7 +32,7 @@ pub fn first() -> i32 {
     twos
 }
 
-pub fn second() -> i32 {
+pub fn second() -> u64 {
     let mut b = [[0u8; SIZE]; SIZE];
     let mut twos = 0;
     for ((x1, y1), (x2, y2)) in parse() {
@@ -44,7 +44,7 @@ pub fn second() -> i32 {
             let x = (x1 + x_sign * i) as usize;
             let y = (y1 + y_sign * i) as usize;
             b[y][x] += 1;
-            twos += (b[y][x] == 2) as i32;
+            twos += (b[y][x] == 2) as u64;
         }
     }
     twos

@@ -36,7 +36,7 @@ fn parse() -> (Vec<usize>, Vec<Card>) {
     (numbers, cards)
 }
 
-pub fn first() -> i32 {
+pub fn first() -> u64 {
     let (numbers, mut cards) = parse();
     for n in numbers {
         for c in &mut cards {
@@ -47,7 +47,7 @@ pub fn first() -> i32 {
                 c.sums[y] -= n;
 
                 if c.sums[x] == 0 || c.sums[y] == 0 {
-                    return (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32;
+                    return (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as u64;
                 }
             }
         }
@@ -55,7 +55,7 @@ pub fn first() -> i32 {
     0
 }
 
-pub fn second() -> i32 {
+pub fn second() -> u64 {
     let (numbers, mut cards) = parse();
     cards
         .iter_mut()
@@ -68,7 +68,7 @@ pub fn second() -> i32 {
                     c.sums[y] -= n;
 
                     if c.sums[x] == 0 || c.sums[y] == 0 {
-                        return (k, (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as i32);
+                        return (k, (c.sums[..CARD_SIZE].iter().sum::<usize>() * n) as u64);
                     }
                 }
             }

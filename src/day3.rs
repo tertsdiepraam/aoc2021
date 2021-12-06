@@ -1,6 +1,6 @@
 const INPUT: &'static str = include_str!("../input/3.txt");
 
-pub fn first() -> i32 {
+pub fn first() -> u64 {
     let mut lines: Vec<_> = INPUT.lines().map(|l| l.chars()).collect();
 
     let mut a = [0; 12];
@@ -16,7 +16,7 @@ pub fn first() -> i32 {
     a[0] * a[1]
 }
 
-pub fn second() -> i32 {
+pub fn second() -> u64 {
     let v: Vec<_> = INPUT
         .lines()
         .map(|l| -> Vec<_> { l.chars().map(|c| c == '1').collect() })
@@ -33,7 +33,7 @@ pub fn second() -> i32 {
 
     let mut a = 0;
     for (i, &elem) in vec[0].iter().rev().enumerate() {
-        a += (elem as i32) << i;
+        a += (elem as u64) << i;
     }
 
     let mut vec = v;
@@ -47,7 +47,7 @@ pub fn second() -> i32 {
 
     let mut b = 0;
     for (i, &elem) in vec[0].iter().rev().enumerate() {
-        b += (elem as i32) << i;
+        b += (elem as u64) << i;
     }
 
     a * b
