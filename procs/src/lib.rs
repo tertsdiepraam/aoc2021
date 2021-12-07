@@ -31,6 +31,6 @@ pub fn bench_all(_item: TokenStream) -> TokenStream {
             out += &format!("bench({0}, &exercises, day{0}::main),", day);
         }
     }
-    out += "].into_iter().flat_map(|x| x).sum::<u128>()";
+    out += "].into_iter().flat_map(|x| x).sum::<Duration>()";
     out.parse().unwrap()
 }
